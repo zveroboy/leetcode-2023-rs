@@ -45,9 +45,9 @@ mod tests {
 
     #[test]
     fn test_case_1() {
-        let nums = [1, 2, 3];
+        let nums = [1, 2, 3].to_vec();
 
-        let res = Solution::permute(nums.to_vec());
+        let res = Solution::permute(nums);
 
         assert_answer(
             res,
@@ -65,9 +65,9 @@ mod tests {
     #[ignore]
     #[test]
     fn test_case_2() {
-        let nums = [0, 1];
+        let nums = [0, 1].to_vec();
 
-        let res = Solution::permute(nums.to_vec());
+        let res = Solution::permute(nums);
 
         assert_answer(res, &[&[0, 1], &[1, 0]]);
     }
