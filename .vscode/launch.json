@@ -14,14 +14,13 @@
           "--no-run",
           // "--lib",
           // "--package=leetcode-2023",
-          "permutations"
         ],
         "filter": {
           "name": "leetcode-2023",
           "kind": "lib"
         }
       },
-      "args": [],
+      "args": ["house_robber"],
       "cwd": "${workspaceFolder}"
     }
   ]
