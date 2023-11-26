@@ -6,22 +6,21 @@ struct Solution;
 impl Solution {
     pub fn rob(nums: Vec<i32>) -> i32 {
         let mut max = 0;
-        let mut acc_alt = 0;
-        let mut acc = 0;
+        let mut max_alter = 0;
+        let mut max_prev = 0;
         for (i, &num) in nums.iter().enumerate() {
             max = match i {
-                0 | 1 => num.max(acc),
+                0 | 1 => num.max(max),
                 _ => {
-                    let candidate1 = acc;
-                    let candidate2 = acc - nums[i - 1] + num;
-                    let candidate3 = acc_alt + num;
+                    let candidate2 = max - nums[i - 1] + num;
+                    let candidate3 = max_alter + num;
 
-                    max.max(candidate1).max(candidate2).max(candidate3)
+                    max.max(candidate2).max(candidate3)
                 }
             };
 
-            acc_alt = acc;
-            acc = max;
+            max_alter = max_prev;
+            max_prev = max;
         }
         max
     }
