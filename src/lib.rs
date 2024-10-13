@@ -12,8 +12,8 @@ mod house_robber;
 mod letter_combinations_of_a_phone_number;
 mod longest_substring_without_repeating_characters;
 mod n_queens;
-mod number_of_islands;
 mod number_of_1_bits;
+mod number_of_islands;
 mod permutation_in_string;
 mod permutations;
 mod product_of_array_except_self;
@@ -23,3 +23,5 @@ mod single_number;
 mod two_sum_ii_input_array_is_sorted;
 mod valid_palindrome;
 mod valid_sudoku;
+
+mod structures;

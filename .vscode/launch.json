@@ -20,7 +20,7 @@
           "kind": "lib"
         }
       },
-      "args": ["house_robber"],
+      "args": ["number_of_islands"],
       "cwd": "${workspaceFolder}"
     }
   ]
