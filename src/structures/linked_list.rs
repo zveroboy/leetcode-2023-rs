@@ -1,9 +1,11 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
+type SharedNode<T> = Rc<RefCell<Node<T>>>;
+
 pub struct Node<T: Copy> {
     value: T,
-    next: Option<Rc<RefCell<Node<T>>>>,
+    next: Option<SharedNode<T>>,
 }
 
 impl<T: Copy> Node<T> {
@@ -13,8 +15,8 @@ impl<T: Copy> Node<T> {
 }
 
 pub struct List<T: Copy> {
-    head: Option<Rc<RefCell<Node<T>>>>,
-    tail: Option<Rc<RefCell<Node<T>>>>,
+    head: Option<SharedNode<T>>,
+    tail: Option<SharedNode<T>>,
 }
 
 impl<T: Copy> List<T> {
@@ -28,10 +30,10 @@ impl<T: Copy> List<T> {
     pub fn push(&mut self, value: T) {
         let node = Node::new(value);
 
-        self.head.get_or_insert_with(|| Rc::clone(&node));
+        self.head.get_or_insert_with(|| node.clone());
 
         if let Some(ref mut tail) = self.tail {
-            tail.borrow_mut().next = Some(Rc::clone(&node));
+            tail.borrow_mut().next = Some(node.clone());
         }
 
         self.tail = Some(node);
@@ -40,19 +42,13 @@ impl<T: Copy> List<T> {
     pub fn to_vec(&self) -> Vec<T> {
         let mut res = vec![];
 
-        let mut current = match &self.head {
-            Some(node) => Rc::clone(&node),
-            None => return res,
-        };
+        let mut current = self.head.as_ref().and_then(|rc| Some(rc.clone()));
 
-        loop {
-            res.push(current.as_ref().borrow().value); //works because value is Copy
+        while let Some(node) = current {
+            let node_ref = node.borrow();
 
-            let node = match &current.borrow().next {
-                Some(node) => Rc::clone(&node),
-                None => break,
-            };
-            current = node;
+            res.push(node_ref.value);
+            current = node_ref.next.as_ref().and_then(|rc| Some(rc.clone()));
         }
 
         res
