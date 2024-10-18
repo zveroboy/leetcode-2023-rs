@@ -16,6 +16,7 @@ mod number_of_1_bits;
 mod number_of_islands;
 mod permutation_in_string;
 mod permutations;
+mod print_in_order;
 mod product_of_array_except_self;
 mod reverse_bits;
 mod single_number;
